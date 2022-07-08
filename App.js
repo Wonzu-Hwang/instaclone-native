@@ -6,9 +6,6 @@ import LoggedOutNav from "./navigators/LoggedOutNav";
 import { NavigationContainer } from "@react-navigation/native";
 import { useState } from "react";
 
-import { Appearance } from "react-native";
-import { AppearanceProvider } from "react-native";
-
 export default function App() {
   const [loading, setLoading] = useState(true);
   const onFinish = () => setLoading(false);
@@ -16,12 +13,13 @@ export default function App() {
     const fontsToLoad = [Ionicons.font];
     const fontPromises = fontsToLoad.map(font => Font.loadAsync(font));
     const imagesToLoad = [
-      require("./assets/Instagram-name-logo-transparent-PNG.png"),
+      require("./assets/logo.png"),
       "https://image.similarpng.com/very-thumbnail/2020/06/Instagram-name-logo-transparent-PNG.png",
     ];
     const imagePromises = imagesToLoad.map(image => Asset.loadAsync(image));
     return Promise.all([...fontPromises, ...imagePromises]);
   };
+
   if (loading) {
     return (
       <AppLoading
@@ -32,10 +30,8 @@ export default function App() {
     );
   }
   return (
-    <AppearanceProvider>
-      <NavigationContainer>
-        <LoggedOutNav />
-      </NavigationContainer>
-    </AppearanceProvider>
+    <NavigationContainer>
+      <LoggedOutNav />
+    </NavigationContainer>
   );
 }
